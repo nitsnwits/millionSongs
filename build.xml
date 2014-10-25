@@ -8,8 +8,8 @@
 		<property name="build.dir" location="${basedir}/classes" />
 
 		<property name="config.dir" location="${basedir}/resources" />
-		<property name="hibernate.dir" location="/home/abhinav/Downloads/hibernate-release-4.3.6.Final" />
-		<property name="junit.jar" location="/home/abhinav/Downloads/junit-4.8.2.jar" />
+		<property name="hibernate.dir" location="/Users/neerajsharma/Downloads/hibernate-release-4.3.6.Final" />
+		<property name="junit.jar" location="/Users/neerajsharma/Downloads/junit-4.11.jar" />
 
 		<path id="project.classpath">
 			<pathelement location="${build.dir}" />

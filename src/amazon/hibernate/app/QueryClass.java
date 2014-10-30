@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import amazon.hibernate.util.Thread3;
-import amazon.hibernate.util.Thread4;
+import amazon.hibernate.util.Thread5;
+import amazon.hibernate.util.Thread6;
 
 
 public class QueryClass {
@@ -35,14 +35,20 @@ public class QueryClass {
 		}
 		System.out.println("Finished all threads");
 		 */
-		
+
 		/*Thread1 thread1 = new Thread1();
 		thread1.start();
 		new Thread2(thread1).start();*/
-		
-		Thread3 thread3 = new Thread3();
+
+		/*		Thread3 thread3 = new Thread3();
 		thread3.start();
 		new Thread4(thread3).start();
+		 */	
+		
+		Thread5 thread3 = new Thread5();
+		thread3.start();
+		new Thread6(thread3).start();
+
 	}
 
 }

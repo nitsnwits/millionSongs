@@ -15,9 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import amazon.hibernate.data.DBTable;
-import amazon.hibernate.schemas.Product;
 import amazon.hibernate.schemas.Product1;
-import amazon.hibernate.schemas.Review;
 import amazon.hibernate.schemas.Review1;
 import amazon.hibernate.util.GenerateReview;
 import amazon.hibernate.util.HibernateUtil;

@@ -3,7 +3,6 @@ package amazon.hibernate.util;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.Vector;
 
 import amazon.hibernate.data.DBTable;

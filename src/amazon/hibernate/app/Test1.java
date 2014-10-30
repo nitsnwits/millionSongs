@@ -15,15 +15,21 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import amazon.hibernate.data.DBTable;
+import amazon.hibernate.schemas.Combined;
+import amazon.hibernate.schemas.Product;
+import amazon.hibernate.schemas.Review;
 import amazon.hibernate.util.GenerateReview;
 import amazon.hibernate.util.HibernateUtil;
 
-public class Test {
+public class Test1 {
 
 	static long count = 0;
 	Session session;
 	Transaction tx; 
 	ArrayList<DBTable> dbArrayList = new ArrayList<>();
+	ArrayList<Product> prArrayList = new ArrayList<>();
+	ArrayList<Review> reArrayList = new ArrayList<>();
+	ArrayList<Combined> coArrayList = new ArrayList<>();
 
 	/**
 	 * @param args
@@ -31,53 +37,64 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Test test = new Test();
+		Test1 test = new Test1();
 		InputStream fileStream;
 		try {	
+			
 			GenerateReview generateReview = new GenerateReview();
-			fileStream = new FileInputStream("/home/abhinav/Downloads/Movies_&_TV.txt.gz");
+			fileStream = new FileInputStream("/home/abhinav/Downloads/Arts.txt.gz");
 			InputStream gzipStream = new GZIPInputStream(fileStream);
 			Reader decoder = new InputStreamReader(gzipStream, "UTF-8");
 			BufferedReader buffered = new BufferedReader(decoder);
 			String line = null;
+			
 			HashMap<String, String> reviews = new HashMap<>();
 			long date1 = System.currentTimeMillis();
 			System.out.println("Start time: "+ date1);
+			
 			while((line=buffered.readLine())!=null){
 				if(line.length()!=0){
-						String[] string = line.split(":");
+										String[] string = line.split(":");
 						String[] string1 = string[0].split("/");
 						reviews.put(string1[1], string[1].trim());
 				}else{
-					try {				
+					try {
+						//System.out.println("Ranganath");
 						//DBTable dbTable = generateReview.createReview(reviews);
-						DBTable dbTable = new DBTable();
-						dbTable.setId(count);
+						Product product = new Product();
+						product.setId(count);
+						product.setPrice(reviews.get("price"));
+						product.setProduct_id(reviews.get("productId"));
+						product.setTitle(reviews.get("title"));
+						
+						Review review = new Review();
+						review.setId(count);
+						review.setProfile_name(reviews.get("profileName"));
+						review.setHelpfulness(reviews.get("helpfulness"));
+						review.setReview_text(reviews.get("text"));
+						review.setReview_summary(reviews.get("summary"));
+						review.setScore(reviews.get("score"));
+						review.setUser_id(reviews.get("userId"));
+						review.setReview_time(reviews.get("time"));
+						
+						Combined combined = new Combined();
+						combined.setProduct_id(reviews.get("productId"));
+						combined.setReview_id(count);
+						combined.setId(count);
 						count++;
-						dbTable.setProduct_id(reviews.get("productId"));
-						dbTable.setHelpfulness(reviews.get("helpfulness"));
-						dbTable.setProfile_name(reviews.get("profileName"));
-						dbTable.setReview_summary(reviews.get("summary"));
-						dbTable.setReview_text(reviews.get("text"));
-						/*if(reviews.get("time") != null){
-							dbTable.setReview_time(Integer.parseInt(reviews.get("time")));	
-						}*/
-						dbTable.setReview_time(reviews.get("time"));
-						/*if(reviews.get("score")!=null){
-							dbTable.setScore(Float.parseFloat(reviews.get("score")));	
-						}*/
-						dbTable.setScore(reviews.get("score"));
-						dbTable.setPrice(reviews.get("price"));
-						dbTable.setTitle(reviews.get("title"));
-						dbTable.setUser_id(reviews.get("userId"));
-						test.dbArrayList.add(dbTable);
-						if(test.dbArrayList.size()==200000){
-							test.commitMethod(test.dbArrayList);
+						
+						test.prArrayList.add(product);
+						test.coArrayList.add(combined);
+						test.reArrayList.add(review);
+						if(test.prArrayList.size()==10000){
+							test.commitMethod(test.prArrayList, test.reArrayList, test.coArrayList);
 							test.dbArrayList = new ArrayList<>();
 						}
 					} finally {
 						//session.close();
 					}
+					reviews.clear();
+					reviews =null;
 					reviews = new HashMap<>();
 				}
 			}
@@ -110,12 +127,14 @@ public class Test {
 
 	}
 
-	private void commitMethod(ArrayList<DBTable> dbArrayList) {
+	private void commitMethod(ArrayList<Product> prArrayList, ArrayList<Review> reArrayList, ArrayList<Combined> coArrayList) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		tx = session.beginTransaction();
-		for (int i = 0; i < dbArrayList.size(); i++) {
-			session.save(dbArrayList.get(i));
+		for (int i = 0; i < prArrayList.size(); i++) {
+			session.save(prArrayList.get(i));
+			session.save(reArrayList.get(i));
+			session.save(coArrayList.get(i));
 			if (i % 100 == 0) {
 				session.flush();
 				session.clear();
@@ -124,35 +143,5 @@ public class Test {
 		tx.commit();
 	}
 
+
 }
-
-/*if(string1[1].equals("productId")){
-reviews.put("productId", string[1].trim());
-}else if(string1[1].equals("title")){
-reviews.put("title", string[1].trim());
-}else if(string1[1].equals("price")){
-reviews.put("price", string[1].trim());
-}
-}else if(line.startsWith("review")){
-
-String[] string = line.split(":");
-String[] string1 = string[0].split("/");
-
-
-//if(string1[1].equals("userId")){
-//reviews.put("userId", string[1].trim());
-//}else if(string1[1].equals("profileName")){
-//reviews.put("profileName", string[1].trim());
-//}else if(string1[1].equals("helpfulness")){
-//reviews.put("helpfulness", string[1].trim());
-//}else if(string1[1].equals("score")){
-//reviews.put("score", string[1].trim());
-//}else if(string1[1].equals("time")){
-//reviews.put("time", string[1].trim());
-//}else if(string1[1].equals("summary")){
-//reviews.put("summary", string[1].trim());
-//}else if(string1[1].equals("text")){
-//reviews.put("text", string[1].trim());
-//}
- */					
-

@@ -30,8 +30,9 @@
 		<property name="current_session_context_class">thread</property>
 
 		<!-- Drop and re-create the database schema on startup (use validate to keep changes)-->
-		
-		<mapping class="amazon.hibernate.data.DBTable" />
+		<property name="hbm2ddl.auto">create</property>
+
+		<mapping class="gash.hibernate.data.DBTable" />
 		
 	</session-factory>
 

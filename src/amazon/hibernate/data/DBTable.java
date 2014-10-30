@@ -2,8 +2,6 @@ package amazon.hibernate.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,24 +10,33 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name="amazon")
 public class DBTable {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	private String product_id;
 	private String user_id;
+	@Type(type = "text")
 	private String profile_name;
+	@Type(type = "text")
 	private String helpfulness;
-	private float score;
-	private int review_time;
+	private String score;
+	private String review_time;
 	@Type(type = "text")
 	private String review_summary;
 	@Type(type = "text")
 	private String review_text;
+	@Type(type = "text")
 	private String title;
 	private String price;
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -66,16 +73,16 @@ public class DBTable {
 	public void setHelpfulness(String helpfulness) {
 		this.helpfulness = helpfulness;
 	}
-	public float getScore() {
+	public String getScore() {
 		return score;
 	}
-	public void setScore(float score) {
+	public void setScore(String score) {
 		this.score = score;
 	}
-	public int getReview_time() {
+	public String getReview_time() {
 		return review_time;
 	}
-	public void setReview_time(int review_time) {
+	public void setReview_time(String review_time) {
 		this.review_time = review_time;
 	}
 	public String getReview_summary() {

@@ -1,4 +1,4 @@
-package amazom.hibernate.util;
+package amazon.hibernate.util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

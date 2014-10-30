@@ -1,4 +1,4 @@
-package amazom.hibernate.util;
+package amazon.hibernate.util;
 
 import java.util.HashMap;
 
@@ -13,12 +13,12 @@ public class GenerateReview {
 		dbTable.setProfile_name(reviews.get("profileName"));
 		dbTable.setReview_summary(reviews.get("summary"));
 		dbTable.setReview_text(reviews.get("text"));
-		if(reviews.get("time") != null){
+		/*if(reviews.get("time") != null){
 			dbTable.setReview_time(Integer.parseInt(reviews.get("time")));	
 		}
 		if(reviews.get("score")!=null){
 			dbTable.setScore(Float.parseFloat(reviews.get("score")));	
-		}
+		}*/
 		dbTable.setPrice(reviews.get("price"));
 		dbTable.setTitle(reviews.get("title"));
 		dbTable.setUser_id(reviews.get("userId"));

@@ -1,4 +1,4 @@
-package amazom.hibernate.util;
+package amazon.hibernate.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
